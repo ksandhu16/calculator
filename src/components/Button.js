@@ -1,24 +1,40 @@
 import React from 'react'
-import { StyleSheet, Text, Dimensions, TouchableHighlight } from 'react-native'
+import { StyleSheet, Text, Dimensions, TouchableOpacity } from 'react-native'
 
 export default props => {
+  const stylesButton = [styles.button]
+  props.double && stylesButton.push(styles.doubleButton)
+  props.triple && stylesButton.push(styles.tripleButton)
+  props.operation && stylesButton.push(styles.operationButton)
+
   return (
-    <TouchableHighlight onPress={props.onClick}>
-      <Text style={styles.button}>{props.label}</Text>
-    </TouchableHighlight>
+    <TouchableOpacity onPress={() => props.onClick(props.label)}>
+      <Text style={stylesButton}>{props.label}</Text>
+    </TouchableOpacity>
   )
 }
 
 const buttonSize = Dimensions.get('window').width / 4
 const styles = StyleSheet.create({
   button: {
-    fontSize: 40,
     height: buttonSize,
     width: buttonSize,
-    padding: 20,
     backgroundColor: '#F0F0F0',
-    textAlign: 'center',
+    borderColor: '#888',
     borderWidth: 1,
-    borderColor: '#888'
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    fontSize: 40,
+    
+  },
+  operationButton: {
+    backgroundColor: '#FA8231',
+    color: '#FFF'
+  },
+  doubleButton: {
+    width: buttonSize * 2
+  },
+  tripleButton: {
+    width: buttonSize * 3
   }
 })
